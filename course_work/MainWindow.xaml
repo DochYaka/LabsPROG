@@ -1,0 +1,241 @@
+﻿<Window x:Class="CourseWork.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourseWork"
+        mc:Ignorable="d"
+        Title="Кадровое агентство" Height="750" Width="1500"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Список работников -->
+        <GroupBox Grid.Row="1" Header="Список работников" Margin="10,5" Padding="5">
+            <DockPanel>
+                <!-- Панель инструментов -->
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,5">
+                    
+                    <Button x:Name="OpenWorkerWindow" Content="Окно рабочего" 
+                            Click="OpenWorkerWindow_Click"
+                            Margin="2" Background="LightSkyBlue"/>
+
+                    <Button x:Name="OpenEmployerWindow" Content="Окно работадателя" 
+                            Click="OpenEmployerWindow_Click"
+                            Margin="2" Background="LightSkyBlue"/>
+
+                    <Button Content="Обновить"
+                            Click="ResetSort_Click"
+                            Margin="2" Background="LightSkyBlue"/>
+
+                    <Button Content="Автоподбор"
+                            Click="AutoSelect_Click"
+                            Margin="2" Background="LightSkyBlue"/>
+
+                    <Button x:Name="btnSave" Content="Сохранить данные" 
+            Click="SaveData_Click" Margin="2" Background="LightSkyBlue"/>
+
+                    <Button x:Name="btnLoad" Content="Загрузить данные" 
+            Click="LoadData_Click" Margin="2" Background="LightSkyBlue"/>
+
+                </StackPanel>
+
+                <!-- ListView с работниками -->
+                <ListView x:Name="lvWorkers" Width="1000" DockPanel.Dock="Left" 
+                          GridViewColumnHeader.Click="Header_Click">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding Id}"/>
+
+                            <GridViewColumn Width="200">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="LastName">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="ФИО"/>
+                                            <Path Fill="Black" Data="M 0 0 L 8 0 L 4 4 Z"
+                          Width="8" Height="8" Margin="5 0 0 0"
+                          Visibility="Collapsed"/>
+                                        </StackPanel>
+                                    </GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                                
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <Binding Path="FullName"/>
+                                </GridViewColumn.DisplayMemberBinding>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Телефон" Width="100" DisplayMemberBinding="{Binding PhoneNumber}"/>
+
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="GenderDisplay">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Пол"/>
+                                            <Path Fill="Black" Data="M 0 0 L 8 0 L 4 4 Z"
+                          Width="8" Height="8" Margin="5 0 0 0"
+                          Visibility="Collapsed"/>
+                                        </StackPanel>
+                                    </GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <Binding Path="GenderDisplay"/>
+                                </GridViewColumn.DisplayMemberBinding>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="100">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="EducationDisplay">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Образование"/>
+                                            <Path Fill="Black" Data="M 0 0 L 8 0 L 4 4 Z"
+                          Width="8" Height="8" Margin="5 0 0 0"
+                          Visibility="Collapsed"/>
+                                        </StackPanel>
+                                    </GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <Binding Path="EducationDisplay"/>
+                                </GridViewColumn.DisplayMemberBinding>
+                            </GridViewColumn>
+                            
+                            <GridViewColumn Header="Должность" Width="120" DisplayMemberBinding="{Binding DesiredJob}"/>
+
+                            <GridViewColumn Header="Опыт" Width="60" DisplayMemberBinding="{Binding ExperienceDisplay}"/>
+
+                            <GridViewColumn Header="Зарплата" Width="90" DisplayMemberBinding="{Binding WagesDisplay}"/>
+                            
+                            <GridViewColumn Header="Район" Width="120" DisplayMemberBinding="{Binding DistrictDisplay}"/>
+
+                            <GridViewColumn>
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="StatusDisplay">
+                                        <StackPanel>
+                                            <TextBlock Text="Статус"/>
+                                        </StackPanel>
+                                    </GridViewColumnHeader>
+                                </GridViewColumn.Header>
+
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <Binding Path="StatusDisplay"/>
+                                </GridViewColumn.DisplayMemberBinding>
+                            </GridViewColumn>
+                            
+                        </GridView>
+
+                    </ListView.View>
+                </ListView>
+
+                <DockPanel>
+                    <StackPanel Margin="10, 0, 0, 0" DockPanel.Dock="Top">
+                        <TextBlock Text="Работадатели:" HorizontalAlignment="Center"
+               FontWeight="Bold" FontSize="20" Foreground="DarkBlue"/>
+
+                        <ComboBox x:Name="cbEmployers" SelectionChanged="cbEmployers_SelectionChanged"/>
+
+                        <TextBlock x:Name="tbVacancy" Text="Вакансии:" HorizontalAlignment="Center"
+               FontWeight="Bold" FontSize="20" Foreground="DarkBlue" Visibility="Collapsed"/>
+
+                        <ListView x:Name="lvVacancy" Visibility="Collapsed">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn>
+                                        <GridViewColumn.Header>
+                                            <GridViewColumnHeader Tag="JobDisplay">
+                                                <StackPanel>
+                                                    <TextBlock Text="Должность"/>
+                                                </StackPanel>
+                                            </GridViewColumnHeader>
+                                        </GridViewColumn.Header>
+
+                                        <GridViewColumn.DisplayMemberBinding>
+                                            <Binding Path="JobDisplay"/>
+                                        </GridViewColumn.DisplayMemberBinding>
+                                    </GridViewColumn>
+
+
+                                    <GridViewColumn>
+                                        <GridViewColumn.Header>
+                                            <GridViewColumnHeader Tag="EducationDisplay">
+                                                <StackPanel>
+                                                    <TextBlock Text="Образование"/>
+                                                </StackPanel>
+                                            </GridViewColumnHeader>
+                                        </GridViewColumn.Header>
+
+                                        <GridViewColumn.DisplayMemberBinding>
+                                            <Binding Path="EducationDisplay"/>
+                                        </GridViewColumn.DisplayMemberBinding>
+                                    </GridViewColumn>
+
+
+                                    <GridViewColumn>
+                                        <GridViewColumn.Header>
+                                            <GridViewColumnHeader Tag="ExperienceDisplay">
+                                                <StackPanel>
+                                                    <TextBlock Text="Опыт"/>
+                                                </StackPanel>
+                                            </GridViewColumnHeader>
+                                        </GridViewColumn.Header>
+
+                                        <GridViewColumn.DisplayMemberBinding>
+                                            <Binding Path="ExperienceDisplay"/>
+                                        </GridViewColumn.DisplayMemberBinding>
+                                    </GridViewColumn>
+
+
+                                    <GridViewColumn>
+                                        <GridViewColumn.Header>
+                                            <GridViewColumnHeader Tag="WagesDisplay">
+                                                <StackPanel>
+                                                    <TextBlock Text="Зарплата"/>
+                                                </StackPanel>
+                                            </GridViewColumnHeader>
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.DisplayMemberBinding>
+                                            <Binding Path="WagesDisplay"/>
+                                        </GridViewColumn.DisplayMemberBinding>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn>
+                                        <GridViewColumn.Header>
+                                            <GridViewColumnHeader Tag="DistrictDisplay">
+                                                <StackPanel>
+                                                    <TextBlock Text="Район"/>
+                                                </StackPanel>
+                                            </GridViewColumnHeader>
+                                        </GridViewColumn.Header>
+
+                                        <GridViewColumn.DisplayMemberBinding>
+                                            <Binding Path="DistrictDisplay"/>
+                                        </GridViewColumn.DisplayMemberBinding>
+                                    </GridViewColumn>
+
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Button x:Name="btnSendRequest" Width="100" Height="20" Content="Отправить"
+                                Margin="5" Click="SendWorker_Click"/>
+                    </StackPanel>
+                </DockPanel>
+            </DockPanel>
+
+        </GroupBox>
+
+        <!-- Статус бар -->
+        <StatusBar Grid.Row="2" Background="LightGray">
+            <StatusBarItem>
+                <TextBlock x:Name="tbStatus" Text="Готово" Margin="5,0"/>
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>

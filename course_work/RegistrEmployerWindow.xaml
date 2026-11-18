@@ -1,0 +1,36 @@
+﻿<Window x:Class="RegistrEmployerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="RegistrEmployerWindow" Height="500" Width="800">
+    <Grid>
+        <DockPanel x:Name="MainDockPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
+            <StackPanel DockPanel.Dock="Top" Width="auto" Height="auto">
+                <TextBox Margin="5" Height="30" x:Name="tbNameEmployer" Tag="tbHintNameEmployer" FontSize="20" 
+                  TextChanged="TextBox_Changed" GotFocus="TextBox_Changed" LostFocus="TextBox_Changed"/>
+                <TextBlock Margin="5" FontSize="20" x:Name="tbHintNameEmployer" Text="Введите название компании" IsHitTestVisible="False"/>
+
+                <TextBox Margin="5" Height="30" x:Name="tbAddress" Tag="tbHintAddress" FontSize="20" 
+                  TextChanged="TextBox_Changed" GotFocus="TextBox_Changed" LostFocus="TextBox_Changed"/>
+                <TextBlock Margin="5" FontSize="20" x:Name="tbHintAddress" Text="Введите адрес в пределах города" IsHitTestVisible="False"/>
+
+                <TextBox Margin="5" Height="30" x:Name="tbFullNameHR" Tag="tbHintFullNameHR" FontSize="20"
+                  TextChanged="TextBox_Changed" GotFocus="TextBox_Changed" LostFocus="TextBox_Changed"/>
+                <TextBlock Margin="5" FontSize="20" x:Name="tbHintFullNameHR" Text="Введите ФИО HR" IsHitTestVisible="False"/>
+
+                <TextBox Margin="5" Height="30" x:Name="tbPhoneNumber" Tag="tbHintPhoneNumber" FontSize="20" 
+                  TextChanged="TextBox_Changed" GotFocus="TextBox_Changed" LostFocus="TextBox_Changed"/>
+                <TextBlock Margin="5" FontSize="20" x:Name="tbHintPhoneNumber" Text="Введите номер телефона HR" IsHitTestVisible="False"/>
+
+                <TextBox Margin="5" Height="30" x:Name="tbEmail" Tag="tbHintEmail" FontSize="20" 
+                  TextChanged="TextBox_Changed" GotFocus="TextBox_Changed" LostFocus="TextBox_Changed"/>
+                <TextBlock Margin="5" FontSize="20" x:Name="tbHintEmail" Text="Введите почту HR" IsHitTestVisible="False"/>
+
+                <Button x:Name="btnRegistr" Margin="0, 20, 0, 0" Content="Зарегистрироваться" Background="OrangeRed" 
+                        Click="btnRegistr_Click"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

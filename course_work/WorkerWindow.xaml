@@ -1,0 +1,106 @@
+﻿<Window x:Class="WorkerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="WorkerWindow" Height="200" Width="1500" 
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель ввода данных -->
+        <GroupBox Grid.Row="0" Header="Добавление нового работника" 
+         Margin="10,5" Padding="10" Background="LightCyan">
+            <WrapPanel>
+
+                <!-- ФИО -->
+                <StackPanel Width="160" Margin="5">
+                    <TextBlock Text="Фамилия" FontWeight="Bold"/>
+                    <TextBox x:Name="tbLastName"/>
+
+                    <TextBlock Text="Имя" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <TextBox x:Name="tbFirstName"/>
+
+                    <TextBlock Text="Отчество" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <TextBox x:Name="tbSurName"/>
+                </StackPanel>
+
+                <!-- Контакты -->
+                <StackPanel Width="160" Margin="5">
+                    <TextBlock Text="Телефон" FontWeight="Bold"/>
+                    <TextBox x:Name="tbPhoneNumber"/>
+
+                    <TextBlock Text="Email" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <TextBox x:Name="tbEmail"/>
+                </StackPanel>
+
+                <!-- Пол -->
+                <StackPanel Width="auto" Margin="5">
+                    <TextBlock Text="Пол" FontWeight="Bold"/>
+                    <RadioButton x:Name="rbSexMale" GroupName="Gender" 
+                           Content="Мужской" Margin="2" IsChecked="True"/>
+                    <RadioButton x:Name="rbSexFemale" GroupName="Gender" 
+                           Content="Женский" Margin="2"/>
+                </StackPanel>
+
+                <!-- Адрес -->
+                <StackPanel Width="auto" Margin="5">
+                    <TextBlock Text="Адрес проживания" FontWeight="Bold"/>
+                    <TextBox x:Name="tbAddress" Height="70" 
+                        TextWrapping="Wrap" AcceptsReturn="True"/>
+                </StackPanel>
+
+                <!-- Образование -->
+                <StackPanel Width="130" Margin="5">
+                    <TextBlock Text="Образование" FontWeight="Bold"/>
+                    <ComboBox x:Name="cbEducation"/>
+                </StackPanel>
+
+                <!-- Опыт работы -->
+                <StackPanel Width="110" Margin="5">
+                    <TextBlock Text="Опыт (лет)" FontWeight="Bold"/>
+                    <TextBox x:Name="tbExperience" Text="0" ToolTip="Пример: 1.3"/>
+                    <TextBlock Text="(0-50 лет)" FontSize="10" Foreground="Gray" 
+                          HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Должность -->
+                <StackPanel Width="150" Margin="5">
+                    <TextBlock Text="Желаемая должность" FontWeight="Bold"/>
+                    <ComboBox x:Name="cbJob"/>
+                </StackPanel>
+
+                <!-- Зарплата -->
+                <StackPanel Width="130" Margin="5">
+                    <TextBlock Text="Зарплата (руб.)" FontWeight="Bold"/>
+                    <TextBox x:Name="tbWages" Text="30000"/>
+                    <TextBlock Text="(1000-999999)" FontSize="10" Foreground="Gray" 
+                          HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Район -->
+                <StackPanel Width="160" Margin="5">
+                    <TextBlock Text="Желаемый район" FontWeight="Bold"/>
+                    <ComboBox x:Name="cbDesiredDistrict"/>
+                </StackPanel>
+
+                <!-- Кнопки управления -->
+                <StackPanel Width="120" Margin="10" VerticalAlignment="Center">
+                    <Button x:Name="btnAddWorker" Content="Добавить" 
+                       Click="AddWorker_Click" Height="35" Margin="0,0,0,8"
+                       Background="LightGreen" FontWeight="Bold"/>
+
+                    <Button Content="Закрыть" Width="120" Height="35" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Click="Close_Click" Grid.Row="1"
+                        Background="SkyBlue" FontWeight="Bold"/>
+                </StackPanel>
+            </WrapPanel>
+        </GroupBox>
+    </Grid>
+</Window>
